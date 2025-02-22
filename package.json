@@ -16,6 +16,7 @@
     "@types/jest": "^29.5.14",
     "@typescript-eslint/eslint-plugin": "^8.19.1",
     "@typescript-eslint/parser": "^8.19.1",
+    "browserify": "^17.0.1",
     "esbuild": "^0.25.0",
     "esbuild-plugin-ts": "^0.1.1-rev-1.0",
     "eslint": "^9.17.0",
@@ -32,6 +33,8 @@
     "zlib": "^1.0.5"
   },
   "scripts": {
+    "getmeta": "scripts/get-lib.sh",
+    "buildg": "scripts/compile-glib.sh",
     "build": "node build/build.js",
     "lint": "eslint . --ext .ts",
     "prettify": "prettier --write .",

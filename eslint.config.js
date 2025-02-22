@@ -15,5 +15,5 @@ export default {
   },
   plugins: ['@typescript-eslint'],
   rules: {},
-  ignorePatterns: ['node_modules/', 'dist/', 'build/', 'coverage/'],
+  ignorePatterns: ['node_modules/', 'dist/', 'build/', 'coverage/', 'glib/'],
 };
