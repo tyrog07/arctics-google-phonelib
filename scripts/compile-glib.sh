@@ -3,10 +3,10 @@
 rm -rf src/providers/google-libphonenumber/* \
 && echo "Compiling using Google Closure Compiler..." \
 && ./node_modules/.bin/google-closure-compiler \
-    --compilation_level=ADVANCED \
-    --jscomp_off=undefinedVars \
+    --compilation_level=SIMPLE \
     --js=node_modules/google-closure-library/closure/goog/array/array.js \
     --js=node_modules/google-closure-library/closure/goog/asserts/asserts.js \
+    --js=node_modules/google-closure-library/closure/goog/asserts/dom.js \
     --js=node_modules/google-closure-library/closure/goog/base.js \
     --js=node_modules/google-closure-library/closure/goog/debug/error.js \
     --js=node_modules/google-closure-library/closure/goog/dom/asserts.js \
@@ -15,6 +15,7 @@ rm -rf src/providers/google-libphonenumber/* \
     --js=node_modules/google-closure-library/closure/goog/dom/safe.js \
     --js=node_modules/google-closure-library/closure/goog/dom/tagname.js \
     --js=node_modules/google-closure-library/closure/goog/dom/tags.js \
+    --js=node_modules/google-closure-library/closure/goog/dom/element.js \
     --js=node_modules/google-closure-library/closure/goog/fs/blob.js \
     --js=node_modules/google-closure-library/closure/goog/fs/url.js \
     --js=node_modules/google-closure-library/closure/goog/functions/functions.js \
@@ -41,7 +42,10 @@ rm -rf src/providers/google-libphonenumber/* \
     --js=node_modules/google-closure-library/closure/goog/string/string.js \
     --js=node_modules/google-closure-library/closure/goog/string/stringbuffer.js \
     --js=node_modules/google-closure-library/closure/goog/string/typedstring.js \
-    --js=glib/phonenumbers/index.js \
+    --js=node_modules/google-closure-library/closure/goog/flags/flags.js \
+    --js=node_modules/google-closure-library/closure/goog/labs/userAgent/userAgent.js \
+    --js=node_modules/google-closure-library/closure/goog/labs/userAgent/highEntropy/highEntropyValue.js \
+    --js=node_modules/google-closure-library/closure/goog/labs/userAgent/highEntropy/highEntropyData.js \
     --js=glib/phonenumbers/metadata.js \
     --js=glib/phonenumbers/phonemetadata.pb.js \
     --js=glib/phonenumbers/phonenumber.pb.js \
@@ -49,6 +53,7 @@ rm -rf src/providers/google-libphonenumber/* \
     --js=glib/phonenumbers/shortnumberinfo.js \
     --js=glib/phonenumbers/shortnumbermetadata.js \
     --js=glib/phonenumbers/asyoutypeformatter.js \
+    --js=src/template/index.js \
     --language_in=ECMASCRIPT_2020 \
     --language_out=ECMASCRIPT_2020 \
     --module_resolution=NODE \
