@@ -35,16 +35,9 @@
     "zlib": "^1.0.5"
   },
   "lint-staged": {
-    "packages/**/*.{js,ts}": [
+    "packages/**/!(*glib|src/template|src/providers|dist)/**/*.{js,ts}": [
       "eslint --fix",
       "prettier --write"
-    ],
-    "ignore": [
-      "node_modules/**",
-      "packages/google-phonelib-js/glib/**",
-      "packages/google-phonelib-js/src/template/**",
-      "packages/google-phonelib-js/src/providers/**",
-      "packages/google-phonelib-js/dist/**"
     ]
   }
 }
