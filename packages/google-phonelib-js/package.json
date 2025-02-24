@@ -31,6 +31,7 @@
   "scripts": {
     "get:meta": "scripts/get-lib.sh",
     "compile:glib": "scripts/compile-glib.sh",
-    "build:glib": "node build/build.js"
+    "build:glib": "node build/build.js",
+    "lint": "eslint . --ext .ts,.js"
   }
 }
