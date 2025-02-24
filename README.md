@@ -30,8 +30,6 @@ A JavaScript/TypeScript package providing utilities around certain functionaliti
 
 ## Features
 
-
-
 ## Installation
 
 ```bash
@@ -54,4 +52,6 @@ Contributions are welcome! Please open an issue or submit a pull request.
 
 ## License
 
-This project is licensed under the [MIT License](https://github.com/tyrog07/arctics-google-phonelib/blob/HEAD/LICENSE).
+This package is licensed under [MIT License](https://github.com/tyrog07/arctics-google-phonelib/blob/HEAD/LICENSE).
+
+The bundled [libphonenumber](https://github.com/googlei18n/libphonenumber/blob/master/LICENSE) library is licensed under Apache 2.0.
