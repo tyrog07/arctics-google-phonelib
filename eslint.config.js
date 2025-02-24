@@ -6,6 +6,7 @@ const compat = new FlatCompat({
   recommendedConfig: js.configs.recommended,
 });
 
+//eslint-disable-next-line
 module.exports = [
   {
     files: ['**/*.js'],
@@ -33,7 +34,10 @@ module.exports = [
   {
     files: ['**/*.ts'],
     languageOptions: {
-      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+        project: './tsconfig.json',
+      },
     },
     rules: {
       '@typescript-eslint/no-unused-vars': ['warn'],
@@ -70,6 +74,8 @@ module.exports = [
       'packages/google-phonelib-js/src/providers/',
       'packages/google-phonelib-js/dist/',
       'packages/google-phonelib-js/glib/',
+      'packages/arctics-google-phonelib/dist/',
+      'packages/arctics-google-phonelib/src/*.d.ts',
     ],
   },
 ];
