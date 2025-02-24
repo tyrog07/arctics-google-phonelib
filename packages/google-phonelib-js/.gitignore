@@ -1,0 +1,4 @@
+node_modules/
+glib/
+dist/
+compile-glib.log
