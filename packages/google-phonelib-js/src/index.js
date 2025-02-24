@@ -1,5 +1,3 @@
-// Get an instance of `PhoneNumberUtil`.
-
 const googlePhoneNumberLib = require('./providers/libphonenumber.js');
 
 const PhoneNumberType = googlePhoneNumberLib.PhoneNumberType;
@@ -9,6 +7,7 @@ const AsYouTypeFormatter = googlePhoneNumberLib.AsYouTypeFormatter;
 const ShortNumberInfo = googlePhoneNumberLib.ShortNumberInfo;
 const PhoneNumberUtil = googlePhoneNumberLib.PhoneNumberUtil.getInstance();
 
+// Example usage
 // Parse number with country code and keep raw input.
 // const number = PhoneNumberUtil.parseAndKeepRawInput('202-456-1414', 'US');
 

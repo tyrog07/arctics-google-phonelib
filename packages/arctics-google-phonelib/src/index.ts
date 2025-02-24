@@ -12,9 +12,16 @@
  * // ...etc.
  */
 
+// import { PhoneNumberUtil } from '@arctics/google-phonelib-js';
+
+// // Use phoneUtil as needed
+// const number = PhoneNumberUtil.parseAndKeepRawInput('202-456-1414', 'US');
+// console.log(number.getCountryCode());
+// console.log(number.getNationalNumber());
+
 import { PhoneNumberUtil } from '@arctics/google-phonelib-js';
 
-// Use phoneUtil as needed
 const number = PhoneNumberUtil.parseAndKeepRawInput('202-456-1414', 'US');
-console.log(number.getCountryCode());
-console.log(number.getNationalNumber());
+// console.log(number.getCountryCode());
+// console.log(number.getNationalNumber());
+export default number;
