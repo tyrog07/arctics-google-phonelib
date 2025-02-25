@@ -11,24 +11,19 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '20.18.0' # Use the Node.js version you need
+          node-version: 20 # Or your preferred Node.js version
+          cache: 'yarn' # Caching dependencies
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Build with esbuild
         run: yarn build
-
-      - name: List build artifacts for google-phonelib-js
-        run: ls -R packages/google-phonelib-js/dist
-
-      - name: List build artifacts for arctics-google-phonelib
-        run: ls -R packages/arctics-google-phonelib/dist
 
       - name: Check NPM_TOKEN
         run: |
@@ -42,20 +37,19 @@ jobs:
       - name: Verify package name (arctics-google-phonelib)
         run: |
           PACKAGE_NAME=$(jq -r '.name' packages/arctics-google-phonelib/package.json)
-          if [ "$PACKAGE_NAME" != "@arctics/google-phonelib" ]; then # Updated package name check
+          echo "Package Name: $PACKAGE_NAME" # For debugging
+          if [ "$PACKAGE_NAME" != "@arctics/google-phonelib" ]; then # Replace with your actual package name
             echo "Package name is incorrect: $PACKAGE_NAME"
             exit 1
           else
             echo "Package name is correct: $PACKAGE_NAME"
           fi
 
-      - name: Configure npm
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-
-      - name: Change directory to package
-        run: cd packages/arctics-google-phonelib
-
       - name: Publish to npm
-        run: npm publish --access public
+        run: |
+          cd packages/arctics-google-phonelib
+          echo "Current directory: $(pwd)"  # Important: Confirm directory
+          npm whoami
+          npm publish --access public # Or --dry-run first
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
