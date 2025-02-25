@@ -39,7 +39,7 @@
     "zlib": "^1.0.5"
   },
   "lint-staged": {
-    "packages/**/!(*glib|src/template|src/providers|dist)/**/*.{js,ts}": [
+    "packages/**/!(*glib|src/template|src/providers|dist|build)/**/*.{js,ts}": [
       "eslint --fix",
       "prettier --write"
     ]

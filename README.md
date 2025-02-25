@@ -5,7 +5,6 @@
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/tyrog07/@arctics/google-phonelib/blob/HEAD/LICENSE)
 [![npm latest package](https://img.shields.io/npm/v/@arctics/google-phonelib/latest.svg)](https://www.npmjs.com/package/@arctics/google-phonelib)
 [![npm downloads](https://img.shields.io/npm/dm/@arctics/google-phonelib.svg)](https://www.npmjs.com/package/@arctics/google-phonelib)
-[![Checks](https://github.com/tyrog07/arctics-google-phonelib/actions/workflows/test.yml/badge.svg)](https://github.com/tyrog07/arctics-google-phonelib/actions/workflows/test.yml)
 [![Build](https://github.com/tyrog07/arctics-google-phonelib/actions/workflows/build.yml/badge.svg)](https://github.com/tyrog07/arctics-google-phonelib/actions/workflows/build.yml)
 [![CI](https://github.com/tyrog07/arctics-google-phonelib/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/tyrog07/arctics-google-phonelib/actions/workflows/CI.yml)
 [![install size](https://img.shields.io/badge/dynamic/json?url=https://packagephobia.com/v2/api.json?p=@arctics/google-phonelib&query=$.install.pretty&label=install%20size&style=flat-square)](https://packagephobia.now.sh/result?p=@arctics/google-phonelib)

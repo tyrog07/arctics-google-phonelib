@@ -74,6 +74,7 @@ module.exports = [
       'packages/google-phonelib-js/src/providers/',
       'packages/google-phonelib-js/dist/',
       'packages/google-phonelib-js/glib/',
+      'packages/arctics-google-phonelib/build/',
       'packages/arctics-google-phonelib/dist/',
       'packages/arctics-google-phonelib/src/*.d.ts',
     ],
