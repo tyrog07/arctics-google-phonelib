@@ -7,8 +7,8 @@
 [![npm downloads](https://img.shields.io/npm/dm/@arctics/google-phonelib.svg)](https://www.npmjs.com/package/@arctics/google-phonelib)
 [![Build](https://github.com/tyrog07/arctics-google-phonelib/actions/workflows/build.yml/badge.svg)](https://github.com/tyrog07/arctics-google-phonelib/actions/workflows/build.yml)
 [![CI](https://github.com/tyrog07/arctics-google-phonelib/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/tyrog07/arctics-google-phonelib/actions/workflows/CI.yml)
-[![install size](https://img.shields.io/badge/dynamic/json?url=https://packagephobia.com/v2/api.json?p=@arctics/google-phonelib&query=$.install.pretty&label=install%20size&style=flat-square)](https://packagephobia.now.sh/result?p=@arctics/google-phonelib)
-[![npm bundle size](https://img.shields.io/bundlephobia/minzip/@arctics/google-phonelib?style=flat-square)](https://bundlephobia.com/package/@arctics/google-phonelib@latest)
+[![install size](https://img.shields.io/badge/dynamic/json?url=https://packagephobia.com/v2/api.json?p=@arctics/google-phonelib&query=$.install.pretty&label=install%20size)](https://packagephobia.now.sh/result?p=@arctics/google-phonelib)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/@arctics/google-phonelib)](https://bundlephobia.com/package/@arctics/google-phonelib@latest)
 [![Known Vulnerabilities](https://snyk.io/test/npm/@arctics/google-phonelib/badge.svg)](https://snyk.io/test/npm/@arctics/google-phonelib)
 
 </div>
@@ -25,7 +25,7 @@
 
 ## Introduction
 
-A JavaScript/TypeScript package providing utilities around certain functionalities.
+A JavaScript/TypeScript package providing wrapper for Google's libphonenumber library
 
 ## Features
 
