@@ -11,19 +11,25 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: 20 # Or your preferred Node.js version
           cache: 'yarn' # Caching dependencies
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install
 
       - name: Build with esbuild
         run: yarn build
+
+      - name: List build artifacts for google-phonelib-js
+        run: ls -R packages/google-phonelib-js/dist
+
+      - name: List build artifacts for arctics-google-phonelib
+        run: ls -R packages/arctics-google-phonelib/dist
 
       - name: Check NPM_TOKEN
         run: |
@@ -33,6 +39,9 @@ jobs:
           else
             echo "NPM_TOKEN is set"
           fi
+
+      - name: Configure npm
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
       - name: Verify package name (arctics-google-phonelib)
         run: |
@@ -48,8 +57,7 @@ jobs:
       - name: Publish to npm
         run: |
           cd packages/arctics-google-phonelib
-          echo "Current directory: $(pwd)"  # Important: Confirm directory
-          npm whoami
-          npm publish --access public # Or --dry-run first
+          echo "Current directory: $(pwd)"
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
