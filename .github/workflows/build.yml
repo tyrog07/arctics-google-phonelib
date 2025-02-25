@@ -25,5 +25,8 @@ jobs:
       - name: Build with esbuild
         run: yarn build
 
-      - name: List build artifacts
-        run: ls -R dist
+      - name: List build artifacts for google-phonelib-js
+        run: ls -R packages/google-phonelib-js/dist
+
+      - name: List build artifacts for arctics-google-phonelib
+        run: ls -R packages/arctics-google-phonelib/dist

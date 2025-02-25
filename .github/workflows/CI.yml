@@ -24,8 +24,11 @@ jobs:
       - name: Build with esbuild
         run: yarn build
 
-      - name: List build artifacts
-        run: ls -R dist
+      - name: List build artifacts for google-phonelib-js
+        run: ls -R packages/google-phonelib-js/dist
+
+      - name: List build artifacts for arctics-google-phonelib
+        run: ls -R packages/arctics-google-phonelib/dist
 
       - name: Check NPM_TOKEN
         run: |
@@ -36,10 +39,10 @@ jobs:
             echo "NPM_TOKEN is set"
           fi
 
-      - name: Verify package name
+      - name: Verify package name (arctics-google-phonelib)
         run: |
-          PACKAGE_NAME=$(jq -r '.name' package.json)
-          if [ "$PACKAGE_NAME" != "universal-regex-handler" ]; then
+          PACKAGE_NAME=$(jq -r '.name' packages/arctics-google-phonelib/package.json)
+          if [ "$PACKAGE_NAME" != "@arctics/google-phonelib" ]; then # Updated package name check
             echo "Package name is incorrect: $PACKAGE_NAME"
             exit 1
           else
@@ -48,6 +51,9 @@ jobs:
 
       - name: Configure npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
+      - name: Change directory to package
+        run: cd packages/arctics-google-phonelib
 
       - name: Publish to npm
         run: npm publish --access public
