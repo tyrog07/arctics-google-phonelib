@@ -1,7 +1,6 @@
 {
   "name": "arctics-google-phonelib",
   "description": "A JavaScript/TypeScript package providing wrapper for Google's libphonenumber library",
-  "private": true,
   "workspaces": [
     "packages/*"
   ],
