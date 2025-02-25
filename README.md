@@ -25,7 +25,7 @@
 
 ## Introduction
 
-A JavaScript/TypeScript package providing utilities around certain functionalities.
+A JavaScript/TypeScript package providing wrapper for Google's libphonenumber library
 
 ## Features
 
