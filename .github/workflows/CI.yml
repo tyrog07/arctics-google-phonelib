@@ -40,7 +40,7 @@ jobs:
             echo "NPM_TOKEN is set"
           fi
 
-      - name: Configure npm
+      - name: Configure npm (still needed for package.json info)
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
       - name: Verify package name (arctics-google-phonelib)
@@ -54,10 +54,11 @@ jobs:
             echo "Package name is correct: $PACKAGE_NAME"
           fi
 
-      - name: Publish to npm
+      - name: Execute publish script
         run: |
           cd packages/arctics-google-phonelib
           echo "Current directory: $(pwd)"
-          npm publish --access public
+          chmod +x publish.sh  # Make the script executable
+          ./publish.sh         # Run the script
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
