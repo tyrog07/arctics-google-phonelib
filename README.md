@@ -43,7 +43,11 @@ yarn add @arctics/google-phonelib
 
 ## Usage
 
+Updates coming soon.......
+
 ## API
+
+Updates coming soon.......
 
 ## Contributing
 
