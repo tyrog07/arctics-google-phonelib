@@ -1,27 +1,127 @@
-/**
- * Comprehensive Phone Number Utility Wrapper (based on google-libphonenumber)
- *
- * This class provides a complete and simplified interface to the google-libphonenumber library.
- * It handles instance creation, error handling, and provides a wide range of phone number operations.
- *
- * Usage:
- * const phoneUtil = new PhoneNumberWrapper();
- * const phoneNumber = phoneUtil.parse('1234567890', 'US');
- * const formattedNumber = phoneUtil.format(phoneNumber, 'E164');
- * const isValid = phoneUtil.isValidNumber(phoneNumber);
- * // ...etc.
- */
+import {
+  PhoneNumberUtil,
+  PhoneNumberType,
+  // CountryCodeSource,
+  PhoneNumberFormat,
+  // ValidationResult,
+  // AsYouTypeFormatter,
+  // ShortNumberInfo,
+} from '@arctics/google-phonelib-js';
 
-// import { PhoneNumberUtil } from '@arctics/google-phonelib-js';
+import {
+  IPhoneNumber,
+  IPhoneNumberInfo,
+  IPhoneNumberUtil,
+  NumberFormat,
+} from 'types';
 
-// // Use phoneUtil as needed
-// const number = PhoneNumberUtil.parseAndKeepRawInput('202-456-1414', 'US');
-// console.log(number.getCountryCode());
-// console.log(number.getNationalNumber());
+export class PhoneNumberHandler {
+  private phoneUtil: IPhoneNumberUtil;
+  private parsedPhoneNumber: IPhoneNumber | null = null;
 
-import { PhoneNumberUtil } from '@arctics/google-phonelib-js';
+  constructor(phoneNumber: string, regionCode: string) {
+    this.phoneUtil = PhoneNumberUtil;
+    this.parsedPhoneNumber = this.phoneUtil.parseAndKeepRawInput(
+      phoneNumber,
+      regionCode,
+    );
+  }
 
-const number = PhoneNumberUtil.parseAndKeepRawInput('202-456-1414', 'US');
-// console.log(number.getCountryCode());
-// console.log(number.getNationalNumber());
-export default number;
+  format(numberFormat: NumberFormat): string | null {
+    if (this.parsedPhoneNumber) {
+      switch (numberFormat) {
+        case 'E164':
+          return this.phoneUtil.format(
+            this.parsedPhoneNumber,
+            PhoneNumberFormat.E164,
+          );
+        case 'INTERNATIONAL':
+          return this.phoneUtil.format(
+            this.parsedPhoneNumber,
+            PhoneNumberFormat.INTERNATIONAL,
+          );
+        case 'NATIONAL':
+          return this.phoneUtil.format(
+            this.parsedPhoneNumber,
+            PhoneNumberFormat.NATIONAL,
+          );
+        case 'RFC3966':
+          return this.phoneUtil.format(
+            this.parsedPhoneNumber,
+            PhoneNumberFormat.RFC3966,
+          );
+        default:
+          return this.phoneUtil.format(
+            this.parsedPhoneNumber,
+            PhoneNumberFormat.INTERNATIONAL,
+          );
+      }
+    } else {
+      return null;
+    }
+  }
+
+  private getNumberType(): string | null {
+    if (this.parsedPhoneNumber) {
+      switch (this.phoneUtil.getNumberType(this.parsedPhoneNumber)) {
+        case PhoneNumberType.FIXED_LINE:
+          return 'FIXED_LINE';
+        case PhoneNumberType.MOBILE:
+          return 'MOBILE';
+        case PhoneNumberType.FIXED_LINE_OR_MOBILE:
+          return 'FIXED_LINE_OR_MOBILE';
+        case PhoneNumberType.TOLL_FREE:
+          return 'TOLL_FREE';
+        case PhoneNumberType.PREMIUM_RATE:
+          return 'PREMIUM_RATE';
+        case PhoneNumberType.SHARED_COST:
+          return 'SHARED_COST';
+        case PhoneNumberType.VOIP:
+          return 'VOIP';
+        case PhoneNumberType.PERSONAL_NUMBER:
+          return 'PERSONAL_NUMBER';
+        case PhoneNumberType.PAGER:
+          return 'PAGER';
+        case PhoneNumberType.UAN:
+          return 'UAN';
+        case PhoneNumberType.VOICEMAIL:
+          return 'VOICEMAIL';
+        default:
+          return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
+  /**
+   * Gets information about a phone number.
+   * @returns An object containing phone number information.
+   */
+  getPhoneNumberInfo(): IPhoneNumberInfo {
+    return {
+      countryCode: this.parsedPhoneNumber?.getCountryCode(),
+      nationalNumber: this.parsedPhoneNumber?.getNationalNumber(),
+      extension: this.parsedPhoneNumber?.getExtension(),
+      countryCodeSource: this.parsedPhoneNumber?.getCountryCodeSource(),
+      regionCode: this.parsedPhoneNumber
+        ? this.phoneUtil.getRegionCodeForNumber(this.parsedPhoneNumber)
+        : null,
+      italianLeadingZero: this.parsedPhoneNumber?.getItalianLeadingZero(),
+      rawInput: this.parsedPhoneNumber?.getRawInput(),
+      possible: this.parsedPhoneNumber
+        ? this.phoneUtil.isPossibleNumber(this.parsedPhoneNumber)
+        : null,
+      valid: this.parsedPhoneNumber
+        ? this.phoneUtil.isValidNumber(this.parsedPhoneNumber)
+        : null,
+      validForRegion: this.parsedPhoneNumber
+        ? this.phoneUtil.isValidNumberForRegion(
+            this.parsedPhoneNumber,
+            this.phoneUtil.getRegionCodeForNumber(this.parsedPhoneNumber),
+          )
+        : null,
+      numberType: this.getNumberType(),
+    };
+  }
+}

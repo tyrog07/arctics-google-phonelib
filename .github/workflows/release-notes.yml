@@ -18,6 +18,7 @@ jobs:
       - name: Read package.json version
         id: read_version
         run: |
+          cd packages/arctics-google-phonelib
           VERSION=$(jq -r '.version' package.json)
           echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_ENV
 
