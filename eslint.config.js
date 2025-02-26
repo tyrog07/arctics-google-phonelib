@@ -1,6 +1,8 @@
 // eslint.config.js
 const { FlatCompat } = require('@eslint/eslintrc');
 const js = require('@eslint/js');
+const tsPlugin = require('@typescript-eslint/eslint-plugin');
+const tsParser = require('@typescript-eslint/parser');
 
 const compat = new FlatCompat({
   recommendedConfig: js.configs.recommended,
@@ -27,19 +29,23 @@ module.exports = [
       'no-undef': 'error', // Disallow the use of undeclared variables
       quotes: ['error', 'single'], // Enforce the consistent use of single quotes
       semi: ['error', 'always'], // Require semicolons at the end of statements
-      indent: ['error', 2], // Enforce consistent indentation of 2 spaces
-      'linebreak-style': ['error', 'unix'], // Enforce consistent linebreak style
     },
   },
   {
     files: ['**/*.ts'],
     languageOptions: {
+      parser: tsParser,
       parserOptions: {
-        parser: '@typescript-eslint/parser',
-        project: './tsconfig.json',
+        ecmaVersion: 12,
+        sourceType: 'module',
+        // project: './tsconfig.json', // Uncomment if you have a tsconfig.json
       },
     },
+    plugins: {
+      '@typescript-eslint': tsPlugin,
+    },
     rules: {
+      ...tsPlugin.configs['recommended'].rules,
       '@typescript-eslint/no-unused-vars': ['warn'],
       '@typescript-eslint/explicit-function-return-type': 'warn', // Require explicit return types on functions and class methods
       '@typescript-eslint/no-explicit-any': 'warn', // Disallow the use of `any` type
@@ -49,13 +55,11 @@ module.exports = [
       'no-undef': 'error', // Disallow the use of undeclared variables
       quotes: ['error', 'single'], // Enforce the consistent use of single quotes
       semi: ['error', 'always'], // Require semicolons at the end of statements
-      indent: ['error', 2], // Enforce consistent indentation of 2 spaces
-      'linebreak-style': ['error', 'unix'], // Enforce consistent linebreak style
     },
   },
   // Common configurations
   ...compat.extends('eslint:recommended'),
-  ...compat.plugins('jest', '@typescript-eslint/eslint-plugin'),
+  ...compat.plugins('jest'),
   {
     files: ['**/*.js', '**/*.ts'],
     rules: {

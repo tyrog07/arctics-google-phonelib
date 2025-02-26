@@ -2,27 +2,18 @@ const googlePhoneNumberLib = require('./providers/libphonenumber.js');
 
 const PhoneNumberType = googlePhoneNumberLib.PhoneNumberType;
 const PhoneNumberFormat = googlePhoneNumberLib.PhoneNumberFormat;
+const CountryCodeSource = googlePhoneNumberLib.CountryCodeSource;
 const ValidationResult = googlePhoneNumberLib.PhoneNumberUtil.ValidationResult;
 const AsYouTypeFormatter = googlePhoneNumberLib.AsYouTypeFormatter;
-const ShortNumberInfo = googlePhoneNumberLib.ShortNumberInfo;
+const ShortNumberInfo = googlePhoneNumberLib.ShortNumberInfo.getInstance();
 const PhoneNumberUtil = googlePhoneNumberLib.PhoneNumberUtil.getInstance();
-
-// Example usage
-// Parse number with country code and keep raw input.
-// const number = PhoneNumberUtil.parseAndKeepRawInput('202-456-1414', 'US');
-
-// // Print the phone's country code.
-// console.log(number.getCountryCode());
-// // => 1
-
-// // Print the phone's national number.
-// console.log(number.getNationalNumber());
 
 // Export for ES module usage
 //eslint-disable-next-line
 module.exports = {
   PhoneNumberUtil,
   PhoneNumberType,
+  CountryCodeSource,
   PhoneNumberFormat,
   ValidationResult,
   AsYouTypeFormatter,
