@@ -3,12 +3,12 @@ const { FlatCompat } = require('@eslint/eslintrc');
 const js = require('@eslint/js');
 const tsPlugin = require('@typescript-eslint/eslint-plugin');
 const tsParser = require('@typescript-eslint/parser');
+const globals = require('globals');
 
 const compat = new FlatCompat({
   recommendedConfig: js.configs.recommended,
 });
 
-//eslint-disable-next-line
 module.exports = [
   {
     files: ['**/*.js'],
@@ -18,12 +18,14 @@ module.exports = [
         sourceType: 'module',
       },
       globals: {
-        require: 'readonly', // Define "require" as a global variable
+        ...globals.browser,
+        ...globals.node,
+        ...globals.es2021,
       },
     },
     rules: {
-      'no-unused-vars': 'warn',
-      'no-console': 'error',
+      'no-unused-vars': 'error',
+      'no-console': ['error', { allow: ['error'] }],
       eqeqeq: 'error', // Enforce the use of === and !==
       curly: 'error', // Enforce consistent brace style for all control statements
       'no-undef': 'error', // Disallow the use of undeclared variables
@@ -40,16 +42,21 @@ module.exports = [
         sourceType: 'module',
         // project: './tsconfig.json', // Uncomment if you have a tsconfig.json
       },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        ...globals.es2021,
+      },
     },
     plugins: {
       '@typescript-eslint': tsPlugin,
     },
     rules: {
       ...tsPlugin.configs['recommended'].rules,
-      '@typescript-eslint/no-unused-vars': ['warn'],
+      '@typescript-eslint/no-unused-vars': ['error'],
       '@typescript-eslint/explicit-function-return-type': 'warn', // Require explicit return types on functions and class methods
       '@typescript-eslint/no-explicit-any': 'warn', // Disallow the use of `any` type
-      'no-console': 'error', // Add this line to disallow console statements
+      'no-console': ['error', { allow: ['error'] }], // Add this line to disallow console statements
       eqeqeq: 'error', // Enforce the use of === and !==
       curly: 'error', // Enforce consistent brace style for all control statements
       'no-undef': 'error', // Disallow the use of undeclared variables
