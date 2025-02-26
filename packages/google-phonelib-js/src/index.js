@@ -9,7 +9,6 @@ const ShortNumberInfo = googlePhoneNumberLib.ShortNumberInfo.getInstance();
 const PhoneNumberUtil = googlePhoneNumberLib.PhoneNumberUtil.getInstance();
 
 // Export for ES module usage
-//eslint-disable-next-line
 module.exports = {
   PhoneNumberUtil,
   PhoneNumberType,

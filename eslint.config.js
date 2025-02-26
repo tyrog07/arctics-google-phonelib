@@ -21,6 +21,7 @@ module.exports = [
         ...globals.browser,
         ...globals.node,
         ...globals.es2021,
+        ...globals.jest,
       },
     },
     rules: {
@@ -46,6 +47,7 @@ module.exports = [
         ...globals.browser,
         ...globals.node,
         ...globals.es2021,
+        ...globals.jest,
       },
     },
     plugins: {
