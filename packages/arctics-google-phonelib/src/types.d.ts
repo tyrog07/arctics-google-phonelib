@@ -384,9 +384,9 @@ export interface IPhoneNumber {
   getNationalNumber(): number;
   getExtension(): string | undefined;
   getCountryCodeSource(): number;
-  getRegionCode(): string | undefined;
+  getRegionCode(): string;
   getItalianLeadingZero(): boolean | null;
-  getRawInput(): string | undefined;
+  getRawInput(): string;
 }
 
 export interface NumberFound {
@@ -433,7 +433,7 @@ export interface IPhoneNumberUtil {
   format(number: IPhoneNumber, numberFormat: NumberFormat): string;
   formatInOriginalFormat(number: IPhoneNumber, regionCode: string): string;
   formatOutOfCountryCallingNumber(
-    number: string,
+    number: IPhoneNumber,
     callingFromRegion: string,
   ): string;
   getRegionCodeForNumber(number: IPhoneNumber): string | undefined;
@@ -502,15 +502,15 @@ export interface IPhoneNumberUtil {
 }
 
 export interface IPhoneNumberInfo {
-  countryCode: number | undefined;
-  countryCodeSource: number | undefined;
+  countryCode: number;
+  countryCodeSource: number;
   extension: any;
-  italianLeadingZero: boolean | null | undefined;
-  nationalNumber: number | undefined;
-  numberType: string | null;
-  possible: boolean | null;
-  rawInput: string | undefined;
-  regionCode: string | null | undefined;
-  valid: boolean | null;
-  validForRegion: boolean | null;
+  italianLeadingZero: boolean | null;
+  nationalNumber: number;
+  numberType: string;
+  possible: boolean;
+  rawInput: string;
+  regionCode: string | undefined;
+  valid: boolean;
+  validForRegion: boolean;
 }

@@ -1,7 +1,7 @@
 {
   "name": "@arctics/google-phonelib",
   "description": "A JavaScript/TypeScript package providing wrapper for Google's libphonenumber library",
-  "version": "0.1.0-dev",
+  "version": "0.1.1-dev",
   "homepage": "https://github.com/tyrog07/arctics-google-phonelib",
   "repository": "tyrog07/arctics-google-phonelib",
   "type": "module",
