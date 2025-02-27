@@ -22,5 +22,8 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Build with esbuild
+        run: yarn build
+
       - name: Run Jest tests
         run: yarn test
