@@ -15,7 +15,8 @@
     "build": "yarn build:glib && yarn build:arctics-glib",
     "lint": "yarn workspace @arctics/google-phonelib-js lint && yarn workspace @arctics/google-phonelib lint",
     "lint:fix": "yarn workspace @arctics/google-phonelib-js lint --fix && yarn workspace @arctics/google-phonelib lint --fix",
-    "prettify": "prettier --write ."
+    "prettify": "prettier --write .",
+    "test": "yarn workspace @arctics/google-phonelib test"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",

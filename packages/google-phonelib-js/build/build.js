@@ -24,6 +24,5 @@ esbuild
     });
   })
   .catch(() => {
-    //eslint-disable-next-line
     process.exit(1);
   });
