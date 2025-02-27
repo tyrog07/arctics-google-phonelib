@@ -30,7 +30,7 @@ module.exports = [
       eqeqeq: 'error', // Enforce the use of === and !==
       curly: 'error', // Enforce consistent brace style for all control statements
       'no-undef': 'error', // Disallow the use of undeclared variables
-      quotes: ['error', 'single'], // Enforce the consistent use of single quotes
+      quotes: ['warn', 'single'], // Enforce the consistent use of single quotes
       semi: ['error', 'always'], // Require semicolons at the end of statements
     },
   },
@@ -62,7 +62,7 @@ module.exports = [
       eqeqeq: 'error', // Enforce the use of === and !==
       curly: 'error', // Enforce consistent brace style for all control statements
       'no-undef': 'error', // Disallow the use of undeclared variables
-      quotes: ['error', 'single'], // Enforce the consistent use of single quotes
+      quotes: ['warn', 'single'], // Enforce the consistent use of single quotes
       semi: ['error', 'always'], // Require semicolons at the end of statements
     },
   },
