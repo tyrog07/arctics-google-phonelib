@@ -26,9 +26,35 @@
 
 ## Introduction
 
-A JavaScript/TypeScript package providing wrapper for Google's libphonenumber library
+This package simplifies phone number handling by wrapping Google's libphonenumber. While offering complete access to `i18n.phonenumbers.PhoneNumber` and `i18n.phonenumbers.PhoneNumberUtil` through getParsedPhoneNumber() and getPhoneNumberUtil(), it prioritizes ease of use. The constructor and `getPhoneNumberInfo()` provide a quick way to perform common tasks and access essential information. Designed to abstract frequently used features, this package welcomes user feedback and encourages feature requests.
 
 ## Features
+
+- **Phone Number Parsing:**
+  - Parses phone numbers from various formats into a structured `IPhoneNumber` object.
+  - Supports parsing with or without keeping the raw input.
+  - Handles lenient parsing, allowing for punctuation, whitespace, and leading text.
+- **Phone Number Formatting:**
+  - Formats parsed phone numbers into E.164, international, national, and RFC3966 formats.
+  - Formats numbers in their original format.
+- **Phone Number Information Retrieval:**
+  - Retrieves detailed information about a phone number, including:
+    - Country code.
+    - National number.
+    - Number type (mobile, fixed-line, etc.).
+    - Validity checks (possible, valid, valid for region).
+    - Raw Input.
+    - Region Code.
+    - Extension.
+- **Phone Number Type Detection:**
+  - Identifies the type of phone number (mobile, fixed-line, toll-free, etc.).
+- **Validation:**
+  - Checks if a number is valid, possible, and valid for a region.
+- **TypeScript Support:**
+  - Provides type definitions for enhanced development experience.
+
+* **Future Features:**
+  - `AsYouTypeFormatter` and `ShortNumberInfo` will be added in future releases.
 
 ## Installation
 
@@ -44,11 +70,69 @@ yarn add @arctics/google-phonelib
 
 ## Usage
 
-Updates coming soon.......
+```javascript
+import { PhoneNumberHandler, NumberFormat } from '@arctics/google-phonelib';
+
+// Parsing and retrieving information
+const handler = new PhoneNumberHandler('+12025550100', 'US');
+const info = handler.getPhoneNumberInfo();
+
+console.log(info.nationalNumber); // Output: 2025550100
+console.log(info.countryCode); // Output: 1
+console.log(info.numberType); // Output: FIXED_LINE
+
+// Formatting
+const formattedNational = handler.format(NumberFormat.NATIONAL);
+console.log(formattedNational); // Output: (202) 555-0100
+
+const formattedE164 = handler.format(NumberFormat.E164);
+console.log(formattedE164); // Output: +12025550100
+
+//Original formatting
+const originalFormat = handler.formatInOriginalFormat('US');
+console.log(originalFormat);
+```
 
 ## API
 
-Updates coming soon.......
+### `PhoneNumberHandler` Class
+
+- Constructor:
+
+  - `constructor(phoneNumber: string, regionCode: string, mode?: string)`
+
+    - Creates a new `PhoneNumberHandler` instance.
+    - `phoneNumber`: The phone number string to parse.
+    - `regionCode`: The region code (e.g., 'US', 'GB').
+    - `mode`: Parsing mode ('parse' or 'parseAndKeepRawInput'). Defaults to 'parseAndKeepRawInput'.
+
+- Methods:
+
+  - `getParsedPhoneNumber(): IPhoneNumber | null`
+    - Returns the parsed `IPhoneNumber` object.
+  - `getPhoneNumberUtil(): IPhoneNumberUtil`
+    - Returns the PhoneNumberUtil instance.
+  - `format(numberFormat: NumberFormat): string`
+    - Formats the phone number according to the specified `NumberFormat` (E164, INTERNATIONAL, NATIONAL, RFC3966).
+  - `formatInOriginalFormat(regionCallingFrom: string): string`
+    - Formats the phone number in its original format.
+  - `getPhoneNumberInfo(): IPhoneNumberInfo`
+    - Returns an object containing detailed information about the phone number.
+
+- `NumberFormat` Enum
+
+  - E164
+  - INTERNATIONAL
+  - NATIONAL
+  - RFC3966
+
+- `Interfaces`
+
+  - IPhoneNumber
+  - IPhoneNumberInfo
+  - IPhoneNumberUtil
+
+  (Refer to the source code for detailed interface definitions.)
 
 ## Contributing
 
