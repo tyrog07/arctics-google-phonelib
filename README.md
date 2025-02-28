@@ -71,7 +71,9 @@ yarn add @arctics/google-phonelib
 ## Usage
 
 ```javascript
-import PhoneNumberHandler, { NumberFormat } from '@arctics/google-phonelib';
+import PhoneNumberHandler, {
+  PhoneNumberFormat,
+} from '@arctics/google-phonelib';
 
 // Parsing and retrieving information
 const handler = new PhoneNumberHandler('+12025550100', 'US');
