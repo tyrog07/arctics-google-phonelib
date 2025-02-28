@@ -21,8 +21,9 @@
 3. [Installation](#installation)
 4. [Usage](#usage)
 5. [API](#api)
-6. [Contributing](#contributing)
-7. [License](#license)
+6. [Notes](#notes)
+7. [Contributing](#contributing)
+8. [License](#license)
 
 ## Introduction
 
@@ -71,7 +72,8 @@ yarn add @arctics/google-phonelib
 ## Usage
 
 ```javascript
-import PhoneNumberHandler, {
+import {
+  PhoneNumberHandler,
   PhoneNumberFormat,
 } from '@arctics/google-phonelib';
 
@@ -118,8 +120,25 @@ console.log(originalFormat);
     - Formats the phone number according to the specified `NumberFormat` (E164, INTERNATIONAL, NATIONAL, RFC3966).
   - `formatInOriginalFormat(regionCallingFrom: string): string`
     - Formats the phone number in its original format.
+  - `formatOutOfCountryCallingNumber(regionCallingFrom: string): string`
+    - Formats a phone number for out-of-country dialing purposes.
   - `getPhoneNumberInfo(): IPhoneNumberInfo`
     - Returns an object containing detailed information about the phone number.
+
+- `PhoneNumberType` Enum
+
+  - FIXED_LINE
+  - MOBILE
+  - FIXED_LINE_OR_MOBILE
+  - TOLL_FREE
+  - PREMIUM_RATE
+  - SHARED_COST
+  - VOIP
+  - PERSONAL_NUMBER
+  - PAGER
+  - UAN
+  - VOICEMAIL
+  - UNKNOWN
 
 - `PhoneNumberFormat` Enum
 
@@ -128,6 +147,14 @@ console.log(originalFormat);
   - NATIONAL
   - RFC3966
 
+- `CountryCodeSource` Enum
+
+  - FROM_DEFAULT_COUNTRY
+  - FROM_NUMBER_WITHOUT_PLUS_SIGN
+  - FROM_NUMBER_WITH_IDD
+  - FROM_NUMBER_WITH_PLUS_SIGN
+  - UNSPECIFIED
+
 - `Interfaces`
 
   - IPhoneNumber
@@ -135,6 +162,25 @@ console.log(originalFormat);
   - IPhoneNumberUtil
 
   (Refer to the source code for detailed interface definitions.)
+
+## Notes
+
+### Unavailable methods and classes
+
+The following methods or classes are unavailable on the original JS port of Google's libphonenumber:
+
+- findNumbers - finds numbers in text (useful for highlighting or linking phone numbers inside text messages).
+- PhoneNumberOfflineGeocoder - provides geographical information related to a phone number.
+- PhoneNumberToCarrierMapper - provides carrier information related to a phone number.
+- PhoneNumberToTimeZonesMapper - provides timezone information related to a phone number.
+
+### Metadata issues
+
+Most of the issues submitted to this repository are related to carrier metadata - things like unexpected phone validations, errors in formatting numbers, unknown carriers and so on.
+
+First, try the same input using the [official demo page](http://libphonenumber.appspot.com). If the result is different, then it might mean that a metadata update is due on this package, as the demo page always runs on the latest and official metadata version.
+
+If the result is the same, it means there might be an issue with the currently available metadata. In that case, you should report your issue in the original project's [issue tracker](https://issuetracker.google.com/issues?q=componentid:192347) ([moved out of GitHub on 05/12/2017](https://groups.google.com/forum/#!topic/libphonenumber-discuss/bcCh0175LME)).
 
 ## Contributing
 

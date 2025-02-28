@@ -374,19 +374,17 @@ export interface IPhoneNumber {
   isPossible(): boolean;
   isValid(): boolean;
   getType(): NumberType;
-  format(format: NumberFormat, options?: FormatNumberOptions): string;
-  formatNational(options?: FormatNumberOptionsWithoutIDD): string;
-  formatInternational(options?: FormatNumberOptionsWithoutIDD): string;
   getURI(options?: FormatNumberOptionsWithoutIDD): string;
   isNonGeographic(): boolean;
   isEqual(phoneNumber: PhoneNumber): boolean;
   getCountryCode(): number;
   getNationalNumber(): number;
-  getExtension(): string | undefined;
+  getExtension(): string;
   getCountryCodeSource(): number;
   getRegionCode(): string;
-  getItalianLeadingZero(): boolean | null;
+  getItalianLeadingZeroOrDefault(): boolean;
   getRawInput(): string;
+  getExtensionOrDefault(): string;
 }
 
 export interface NumberFound {
@@ -430,7 +428,7 @@ export interface IPhoneNumberUtil {
     numberToParse: string,
     defaultRegion: string,
   ): IPhoneNumber;
-  format(number: IPhoneNumber, numberFormat: NumberFormat): string;
+  format(number: IPhoneNumber, numberFormat: NumberFormat | number): string;
   formatInOriginalFormat(number: IPhoneNumber, regionCode: string): string;
   formatOutOfCountryCallingNumber(
     number: IPhoneNumber,
@@ -503,9 +501,9 @@ export interface IPhoneNumberUtil {
 
 export interface IPhoneNumberInfo {
   countryCode: number;
-  countryCodeSource: number;
-  extension: any;
-  italianLeadingZero: boolean | null;
+  countryCodeSource: string;
+  extension: string;
+  italianLeadingZero: boolean;
   nationalNumber: number;
   numberType: string;
   possible: boolean;
