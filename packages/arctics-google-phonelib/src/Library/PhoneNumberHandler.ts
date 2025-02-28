@@ -1,6 +1,7 @@
 import {
   PhoneNumberUtil,
   PhoneNumberType,
+  CountryCodeSource,
   // ValidationResult,
   // AsYouTypeFormatter,
   // ShortNumberInfo,
@@ -191,6 +192,43 @@ export class PhoneNumberHandler {
   }
 
   /**
+   * Gets information about a phone number.
+   * @returns {IPhoneNumberInfo} An object containing phone number information.
+   * @property {number} countryCode The phone's country code.
+   * @property {string} countryCodeSource The phone's extension when compared to i18n.phonenumbers.CountryCodeSource.
+   * @property {string} extension The phone's extension.
+   * @property {boolean} italianLeadingZero The phone's italian leading zero.
+   * @property {number} nationalNumber The phone's national number.
+   * @property {string} numberType The result from getNumberType() when compared to i18n.phonenumbers.PhoneNumberType.
+   * @property {boolean} possible The result from isPossibleNumber().
+   * @property {string} rawInput The phone's raw input.
+   * @property {string | undefined} regionCode The result from getRegionCodeForNumber().
+   * @property {boolean} valid The result from isValidNumber().
+   * @property {boolean} validForRegion The result from isValidNumberForRegion().
+   */
+  getPhoneNumberInfo(): IPhoneNumberInfo {
+    return {
+      countryCode: this.parsedPhoneNumber.getCountryCode(),
+      countryCodeSource: this.getCountryCodeSource(
+        this.parsedPhoneNumber.getCountryCodeSource(),
+      ),
+      extension: this.parsedPhoneNumber.getExtensionOrDefault(),
+      italianLeadingZero:
+        this.parsedPhoneNumber?.getItalianLeadingZeroOrDefault(),
+      nationalNumber: this.parsedPhoneNumber.getNationalNumber(),
+      numberType: this.getNumberType(),
+      possible: this.phoneUtil.isPossibleNumber(this.parsedPhoneNumber),
+      rawInput: this.parsedPhoneNumber?.getRawInput(),
+      regionCode: this.phoneUtil.getRegionCodeForNumber(this.parsedPhoneNumber),
+      valid: this.phoneUtil.isValidNumber(this.parsedPhoneNumber),
+      validForRegion: this.phoneUtil.isValidNumberForRegion(
+        this.parsedPhoneNumber,
+        this.phoneUtil.getRegionCodeForNumber(this.parsedPhoneNumber),
+      ),
+    };
+  }
+
+  /**
    * Gets the type of the parsed phone number as a string.
    * @private
    * @returns {string} The phone number type (e.g., 'MOBILE', 'FIXED_LINE', 'UNKNOWN').
@@ -225,37 +263,24 @@ export class PhoneNumberHandler {
   }
 
   /**
-   * Gets information about a phone number.
-   * @returns {IPhoneNumberInfo} An object containing phone number information.
-   * @property {number} countryCode The phone's country code.
-   * @property {number} countryCodeSource The phone's extension when compared to i18n.phonenumbers.CountryCodeSource.
-   * @property {any} extension The phone's extension.
-   * @property {boolean} italianLeadingZero The phone's italian leading zero.
-   * @property {number} nationalNumber The phone's national number.
-   * @property {string} numberType The result from getNumberType() when compared to i18n.phonenumbers.PhoneNumberType.
-   * @property {boolean} possible The result from isPossibleNumber().
-   * @property {string} rawInput The phone's raw input.
-   * @property {string | undefined} regionCode The result from getRegionCodeForNumber().
-   * @property {boolean} valid The result from isValidNumber().
-   * @property {boolean} validForRegion The result from isValidNumberForRegion().
+   * Gets the type of ountry code source the parsed phone number as a string.
+   * @private
+   * @returns {string} The country code source type (e.g., 'FROM_DEFAULT_COUNTRY', 'FROM_NUMBER_WITHOUT_PLUS_SIGN', 'UNSPECIFIED').
    */
-  getPhoneNumberInfo(): IPhoneNumberInfo {
-    return {
-      countryCode: this.parsedPhoneNumber.getCountryCode(),
-      countryCodeSource: this.parsedPhoneNumber.getCountryCodeSource(),
-      extension: this.parsedPhoneNumber.getExtension(),
-      italianLeadingZero:
-        this.parsedPhoneNumber?.getItalianLeadingZeroOrDefault(),
-      nationalNumber: this.parsedPhoneNumber.getNationalNumber(),
-      numberType: this.getNumberType(),
-      possible: this.phoneUtil.isPossibleNumber(this.parsedPhoneNumber),
-      rawInput: this.parsedPhoneNumber?.getRawInput(),
-      regionCode: this.phoneUtil.getRegionCodeForNumber(this.parsedPhoneNumber),
-      valid: this.phoneUtil.isValidNumber(this.parsedPhoneNumber),
-      validForRegion: this.phoneUtil.isValidNumberForRegion(
-        this.parsedPhoneNumber,
-        this.phoneUtil.getRegionCodeForNumber(this.parsedPhoneNumber),
-      ),
-    };
+  private getCountryCodeSource(countryCodeSource: number): string {
+    switch (countryCodeSource) {
+      case CountryCodeSource.FROM_DEFAULT_COUNTRY:
+        return 'FROM_DEFAULT_COUNTRY';
+      case CountryCodeSource.FROM_NUMBER_WITHOUT_PLUS_SIGN:
+        return 'FROM_NUMBER_WITHOUT_PLUS_SIGN';
+      case CountryCodeSource.FROM_NUMBER_WITH_IDD:
+        return 'FROM_NUMBER_WITH_IDD';
+      case CountryCodeSource.FROM_NUMBER_WITH_PLUS_SIGN:
+        return 'FROM_NUMBER_WITH_PLUS_SIGN';
+      case CountryCodeSource.UNSPECIFIED:
+        return 'UNSPECIFIED';
+      default:
+        return 'UNSPECIFIED';
+    }
   }
 }

@@ -58,8 +58,8 @@ describe('PhoneNumberHandler', () => {
     const info = handler.getPhoneNumberInfo();
     expect(info).toEqual({
       countryCode: 1,
-      countryCodeSource: 1, // NumberingPlan
-      extension: null,
+      countryCodeSource: 'FROM_NUMBER_WITH_PLUS_SIGN',
+      extension: '',
       italianLeadingZero: false,
       nationalNumber: 2025550100,
       numberType: 'FIXED_LINE_OR_MOBILE',

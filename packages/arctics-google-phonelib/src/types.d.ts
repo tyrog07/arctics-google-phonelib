@@ -379,11 +379,12 @@ export interface IPhoneNumber {
   isEqual(phoneNumber: PhoneNumber): boolean;
   getCountryCode(): number;
   getNationalNumber(): number;
-  getExtension(): string | undefined;
+  getExtension(): string;
   getCountryCodeSource(): number;
   getRegionCode(): string;
   getItalianLeadingZeroOrDefault(): boolean;
   getRawInput(): string;
+  getExtensionOrDefault(): string;
 }
 
 export interface NumberFound {
@@ -500,8 +501,8 @@ export interface IPhoneNumberUtil {
 
 export interface IPhoneNumberInfo {
   countryCode: number;
-  countryCodeSource: number;
-  extension: any;
+  countryCodeSource: string;
+  extension: string;
   italianLeadingZero: boolean;
   nationalNumber: number;
   numberType: string;
