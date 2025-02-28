@@ -119,7 +119,7 @@ console.log(originalFormat);
   - `getPhoneNumberInfo(): IPhoneNumberInfo`
     - Returns an object containing detailed information about the phone number.
 
-- `NumberFormat` Enum
+- `PhoneNumberFormat` Enum
 
   - E164
   - INTERNATIONAL
