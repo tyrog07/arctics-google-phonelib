@@ -2,7 +2,7 @@ const googlePhoneNumberLib = require('./providers/libphonenumber.js');
 
 const PhoneNumberType = googlePhoneNumberLib.PhoneNumberType;
 const PhoneNumberFormat = googlePhoneNumberLib.PhoneNumberFormat;
-const CountryCodeSource = googlePhoneNumberLib.CountryCodeSource;
+const CountryCodeSource = googlePhoneNumberLib.PhoneNumber.CountryCodeSource;
 const ValidationResult = googlePhoneNumberLib.PhoneNumberUtil.ValidationResult;
 const AsYouTypeFormatter = googlePhoneNumberLib.AsYouTypeFormatter;
 const ShortNumberInfo = googlePhoneNumberLib.ShortNumberInfo.getInstance();

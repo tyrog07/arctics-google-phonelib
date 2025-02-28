@@ -1,5 +1,5 @@
-import PhoneNumberHandler, { PhoneNumberFormat } from '../';
-import { IPhoneNumber } from '../types';
+import { PhoneNumberHandler, PhoneNumberFormat } from '../../';
+import { IPhoneNumber } from '../../types';
 
 describe('PhoneNumberHandler', () => {
   it('should parse the phone number on initialization', () => {
@@ -35,6 +35,12 @@ describe('PhoneNumberHandler', () => {
     expect(formatted).toBe('tel:+1-202-555-0100');
   });
 
+  it('should format number in the out-of-country format', () => {
+    const handler = new PhoneNumberHandler('+12025550100', 'US');
+    const formatted = handler.formatOutOfCountryCallingNumber('US');
+    expect(formatted).toBe('1 (202) 555-0100');
+  });
+
   it('should return the correct number type', () => {
     const handler = new PhoneNumberHandler('+12025550100', 'US');
     const info = handler.getPhoneNumberInfo();
@@ -52,9 +58,9 @@ describe('PhoneNumberHandler', () => {
     const info = handler.getPhoneNumberInfo();
     expect(info).toEqual({
       countryCode: 1,
-      countryCodeSource: 1, // NumberingPlan
-      extension: null,
-      italianLeadingZero: null,
+      countryCodeSource: 'FROM_NUMBER_WITH_PLUS_SIGN',
+      extension: '',
+      italianLeadingZero: false,
       nationalNumber: 2025550100,
       numberType: 'FIXED_LINE_OR_MOBILE',
       possible: true,
