@@ -17,7 +17,7 @@ import {
 /**
  * PhoneNumberHandler class for parsing, formatting, and retrieving information about phone numbers.
  */
-export class PhoneNumberHandler {
+export default class PhoneNumberHandler {
   /**
    * Instance of PhoneNumberUtil for phone number operations.
    * @private
@@ -132,37 +132,11 @@ export class PhoneNumberHandler {
 
   /**
    * Formats the parsed phone number according to the specified format.
-   * @param {NumberFormat} numberFormat - The desired format (E164, INTERNATIONAL, NATIONAL, RFC3966).
+   * @param {NumberFormat} numberFormat - The desired format (PhoneNumberFormat.E164, PhoneNumberFormat.INTERNATIONAL, PhoneNumberFormat.NATIONAL, PhoneNumberFormat.RFC3966).
    * @returns {string | null} The formatted phone number, or null if an error occurs.
    */
   format(numberFormat: NumberFormat): string {
-    switch (numberFormat) {
-      case 'E164':
-        return this.phoneUtil.format(
-          this.parsedPhoneNumber,
-          PhoneNumberFormat.E164,
-        );
-      case 'INTERNATIONAL':
-        return this.phoneUtil.format(
-          this.parsedPhoneNumber,
-          PhoneNumberFormat.INTERNATIONAL,
-        );
-      case 'NATIONAL':
-        return this.phoneUtil.format(
-          this.parsedPhoneNumber,
-          PhoneNumberFormat.NATIONAL,
-        );
-      case 'RFC3966':
-        return this.phoneUtil.format(
-          this.parsedPhoneNumber,
-          PhoneNumberFormat.RFC3966,
-        );
-      default:
-        return this.phoneUtil.format(
-          this.parsedPhoneNumber,
-          PhoneNumberFormat.INTERNATIONAL,
-        );
-    }
+    return this.phoneUtil.format(this.parsedPhoneNumber, numberFormat);
   }
 
   /**
@@ -177,8 +151,6 @@ export class PhoneNumberHandler {
    * Note this method guarantees no digit will be inserted, removed or modified as
    * a result of formatting.
    *
-   * @param {IPhoneNumber} number the phone number that needs to
-   *     be formatted in its original number format.
    * @param {string} regionCallingFrom the region whose IDD needs to be prefixed
    *     if the original number has one.
    * @return {string} the formatted phone number in its original number format.
@@ -258,3 +230,5 @@ export class PhoneNumberHandler {
     };
   }
 }
+
+export { PhoneNumberFormat };

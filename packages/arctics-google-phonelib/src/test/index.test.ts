@@ -1,4 +1,4 @@
-import { PhoneNumberHandler } from '../';
+import PhoneNumberHandler, { PhoneNumberFormat } from '../';
 import { IPhoneNumber } from '../types';
 
 describe('PhoneNumberHandler', () => {
@@ -13,32 +13,26 @@ describe('PhoneNumberHandler', () => {
 
   it('should format the phone number in E164 format', () => {
     const handler = new PhoneNumberHandler('+12025550100', 'US');
-    const formatted = handler.format('E164');
+    const formatted = handler.format(PhoneNumberFormat.E164);
     expect(formatted).toBe('+12025550100');
   });
 
   it('should format the phone number in INTERNATIONAL format', () => {
     const handler = new PhoneNumberHandler('+12025550100', 'US');
-    const formatted = handler.format('INTERNATIONAL');
+    const formatted = handler.format(PhoneNumberFormat.INTERNATIONAL);
     expect(formatted).toBe('+1 202-555-0100');
   });
 
   it('should format the phone number in NATIONAL format', () => {
     const handler = new PhoneNumberHandler('+12025550100', 'US');
-    const formatted = handler.format('NATIONAL');
+    const formatted = handler.format(PhoneNumberFormat.NATIONAL);
     expect(formatted).toBe('(202) 555-0100');
   });
 
   it('should format the phone number in RFC3966 format', () => {
     const handler = new PhoneNumberHandler('+12025550100', 'US');
-    const formatted = handler.format('RFC3966');
+    const formatted = handler.format(PhoneNumberFormat.RFC3966);
     expect(formatted).toBe('tel:+1-202-555-0100');
-  });
-
-  it('should default to INTERNATIONAL format if an invalid format is provided', () => {
-    const handler = new PhoneNumberHandler('+12025550100', 'US');
-    const formatted = handler.format('INVALID_FORMAT' as any);
-    expect(formatted).toBe('+1 202-555-0100');
   });
 
   it('should return the correct number type', () => {
