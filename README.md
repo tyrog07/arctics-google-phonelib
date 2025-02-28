@@ -72,7 +72,8 @@ yarn add @arctics/google-phonelib
 ## Usage
 
 ```javascript
-import PhoneNumberHandler, {
+import {
+  PhoneNumberHandler,
   PhoneNumberFormat,
 } from '@arctics/google-phonelib';
 
@@ -124,12 +125,35 @@ console.log(originalFormat);
   - `getPhoneNumberInfo(): IPhoneNumberInfo`
     - Returns an object containing detailed information about the phone number.
 
+- `PhoneNumberType` Enum
+
+  - FIXED_LINE
+  - MOBILE
+  - FIXED_LINE_OR_MOBILE
+  - TOLL_FREE
+  - PREMIUM_RATE
+  - SHARED_COST
+  - VOIP
+  - PERSONAL_NUMBER
+  - PAGER
+  - UAN
+  - VOICEMAIL
+  - UNKNOWN
+
 - `PhoneNumberFormat` Enum
 
   - E164
   - INTERNATIONAL
   - NATIONAL
   - RFC3966
+
+- `CountryCodeSource` Enum
+
+  - FROM_DEFAULT_COUNTRY
+  - FROM_NUMBER_WITHOUT_PLUS_SIGN
+  - FROM_NUMBER_WITH_IDD
+  - FROM_NUMBER_WITH_PLUS_SIGN
+  - UNSPECIFIED
 
 - `Interfaces`
 
