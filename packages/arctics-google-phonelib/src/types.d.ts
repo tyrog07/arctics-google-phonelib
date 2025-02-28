@@ -430,7 +430,7 @@ export interface IPhoneNumberUtil {
     numberToParse: string,
     defaultRegion: string,
   ): IPhoneNumber;
-  format(number: IPhoneNumber, numberFormat: NumberFormat): string;
+  format(number: IPhoneNumber, numberFormat: NumberFormat | number): string;
   formatInOriginalFormat(number: IPhoneNumber, regionCode: string): string;
   formatOutOfCountryCallingNumber(
     number: IPhoneNumber,

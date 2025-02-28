@@ -1,5 +1,5 @@
-import PhoneNumberHandler, { PhoneNumberFormat } from '../';
-import { IPhoneNumber } from '../types';
+import { PhoneNumberHandler, PhoneNumberFormat } from '../../';
+import { IPhoneNumber } from '../../types';
 
 describe('PhoneNumberHandler', () => {
   it('should parse the phone number on initialization', () => {
