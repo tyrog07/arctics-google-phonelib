@@ -296,7 +296,7 @@ export type Examples = {
   [country in CountryCode]: NationalNumber;
 };
 
-export type NumberFormat = 'NATIONAL' | 'INTERNATIONAL' | 'E164' | 'RFC3966';
+export type NumberFormat = 0 | 1 | 2 | 3;
 export type NumberType =
   | undefined
   | 'PREMIUM_RATE'

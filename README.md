@@ -71,7 +71,9 @@ yarn add @arctics/google-phonelib
 ## Usage
 
 ```javascript
-import { PhoneNumberHandler, NumberFormat } from '@arctics/google-phonelib';
+import PhoneNumberHandler, {
+  PhoneNumberFormat,
+} from '@arctics/google-phonelib';
 
 // Parsing and retrieving information
 const handler = new PhoneNumberHandler('+12025550100', 'US');
@@ -79,13 +81,13 @@ const info = handler.getPhoneNumberInfo();
 
 console.log(info.nationalNumber); // Output: 2025550100
 console.log(info.countryCode); // Output: 1
-console.log(info.numberType); // Output: FIXED_LINE
+console.log(info.numberType); // Output: FIXED_LINE_OR_MOBILE
 
 // Formatting
-const formattedNational = handler.format(NumberFormat.NATIONAL);
+const formattedNational = handler.format(PhoneNumberFormat.NATIONAL);
 console.log(formattedNational); // Output: (202) 555-0100
 
-const formattedE164 = handler.format(NumberFormat.E164);
+const formattedE164 = handler.format(PhoneNumberFormat.E164);
 console.log(formattedE164); // Output: +12025550100
 
 //Original formatting
@@ -119,7 +121,7 @@ console.log(originalFormat);
   - `getPhoneNumberInfo(): IPhoneNumberInfo`
     - Returns an object containing detailed information about the phone number.
 
-- `NumberFormat` Enum
+- `PhoneNumberFormat` Enum
 
   - E164
   - INTERNATIONAL
