@@ -119,6 +119,8 @@ console.log(originalFormat);
     - Formats the phone number according to the specified `NumberFormat` (E164, INTERNATIONAL, NATIONAL, RFC3966).
   - `formatInOriginalFormat(regionCallingFrom: string): string`
     - Formats the phone number in its original format.
+  - `formatOutOfCountryCallingNumber(regionCallingFrom: string): string`
+    - Formats a phone number for out-of-country dialing purposes.
   - `getPhoneNumberInfo(): IPhoneNumberInfo`
     - Returns an object containing detailed information about the phone number.
 

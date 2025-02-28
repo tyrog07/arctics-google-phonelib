@@ -35,6 +35,12 @@ describe('PhoneNumberHandler', () => {
     expect(formatted).toBe('tel:+1-202-555-0100');
   });
 
+  it('should format number in the out-of-country format', () => {
+    const handler = new PhoneNumberHandler('+12025550100', 'US');
+    const formatted = handler.formatOutOfCountryCallingNumber('US');
+    expect(formatted).toBe('1 (202) 555-0100');
+  });
+
   it('should return the correct number type', () => {
     const handler = new PhoneNumberHandler('+12025550100', 'US');
     const info = handler.getPhoneNumberInfo();
@@ -54,7 +60,7 @@ describe('PhoneNumberHandler', () => {
       countryCode: 1,
       countryCodeSource: 1, // NumberingPlan
       extension: null,
-      italianLeadingZero: null,
+      italianLeadingZero: false,
       nationalNumber: 2025550100,
       numberType: 'FIXED_LINE_OR_MOBILE',
       possible: true,
