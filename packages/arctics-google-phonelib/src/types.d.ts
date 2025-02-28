@@ -374,9 +374,6 @@ export interface IPhoneNumber {
   isPossible(): boolean;
   isValid(): boolean;
   getType(): NumberType;
-  format(format: NumberFormat, options?: FormatNumberOptions): string;
-  formatNational(options?: FormatNumberOptionsWithoutIDD): string;
-  formatInternational(options?: FormatNumberOptionsWithoutIDD): string;
   getURI(options?: FormatNumberOptionsWithoutIDD): string;
   isNonGeographic(): boolean;
   isEqual(phoneNumber: PhoneNumber): boolean;
@@ -385,7 +382,7 @@ export interface IPhoneNumber {
   getExtension(): string | undefined;
   getCountryCodeSource(): number;
   getRegionCode(): string;
-  getItalianLeadingZero(): boolean | null;
+  getItalianLeadingZeroOrDefault(): boolean;
   getRawInput(): string;
 }
 
@@ -505,7 +502,7 @@ export interface IPhoneNumberInfo {
   countryCode: number;
   countryCodeSource: number;
   extension: any;
-  italianLeadingZero: boolean | null;
+  italianLeadingZero: boolean;
   nationalNumber: number;
   numberType: string;
   possible: boolean;

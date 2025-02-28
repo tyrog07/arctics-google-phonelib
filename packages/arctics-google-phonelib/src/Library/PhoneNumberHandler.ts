@@ -218,7 +218,8 @@ export class PhoneNumberHandler {
       countryCode: this.parsedPhoneNumber.getCountryCode(),
       countryCodeSource: this.parsedPhoneNumber.getCountryCodeSource(),
       extension: this.parsedPhoneNumber.getExtension(),
-      italianLeadingZero: this.parsedPhoneNumber?.getItalianLeadingZero(),
+      italianLeadingZero:
+        this.parsedPhoneNumber?.getItalianLeadingZeroOrDefault(),
       nationalNumber: this.parsedPhoneNumber.getNationalNumber(),
       numberType: this.getNumberType(),
       possible: this.phoneUtil.isPossibleNumber(this.parsedPhoneNumber),
