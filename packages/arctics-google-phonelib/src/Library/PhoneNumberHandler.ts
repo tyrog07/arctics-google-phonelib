@@ -165,6 +165,32 @@ export class PhoneNumberHandler {
   }
 
   /**
+   * Formats a phone number for out-of-country dialing purposes. If no
+   * regionCallingFrom is supplied, we format the number in its INTERNATIONAL
+   * format. If the country calling code is the same as that of the region where
+   * the number is from, then NATIONAL formatting will be applied.
+   *
+   * <p>If the number itself has a country calling code of zero or an otherwise
+   * invalid country calling code, then we return the number with no formatting
+   * applied.
+   *
+   * <p>Note this function takes care of the case for calling inside of NANPA and
+   * between Russia and Kazakhstan (who share the same country calling code). In
+   * those cases, no international prefix is used. For regions which have multiple
+   * international prefixes, the number in its INTERNATIONAL format will be
+   * returned instead.
+   *
+   * @param {string} regionCallingFrom the region where the call is being placed.
+   * @return {string} the formatted phone number.
+   */
+  formatOutOfCountryCallingNumber(regionCallingFrom: string): string {
+    return this.phoneUtil.formatOutOfCountryCallingNumber(
+      this.parsedPhoneNumber,
+      regionCallingFrom,
+    );
+  }
+
+  /**
    * Gets the type of the parsed phone number as a string.
    * @private
    * @returns {string} The phone number type (e.g., 'MOBILE', 'FIXED_LINE', 'UNKNOWN').
@@ -204,7 +230,7 @@ export class PhoneNumberHandler {
    * @property {number} countryCode The phone's country code.
    * @property {number} countryCodeSource The phone's extension when compared to i18n.phonenumbers.CountryCodeSource.
    * @property {any} extension The phone's extension.
-   * @property {boolean | null} italianLeadingZero The phone's italian leading zero.
+   * @property {boolean} italianLeadingZero The phone's italian leading zero.
    * @property {number} nationalNumber The phone's national number.
    * @property {string} numberType The result from getNumberType() when compared to i18n.phonenumbers.PhoneNumberType.
    * @property {boolean} possible The result from isPossibleNumber().
