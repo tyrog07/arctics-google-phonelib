@@ -15,26 +15,39 @@ async function build() {
     execSync('tsc --declaration --emitDeclarationOnly --outDir dist/types');
 
     // Build configuration for ESM
-    esbuild
-      .build({
-        entryPoints: ['src/index.ts'], // Entry point for your application
-        bundle: true, // Bundle all dependencies
-        minify: true, // Minify the output files
-        splitting: true, // Enable code splitting
-        format: 'esm', // Output format (ESM)
-        outdir: 'dist', // Output directory for ESM
-        sourcemap: true, // Generate sourcemaps
-        metafile: true, // Generate metafile for analysis,
-      })
-      .then(() => {
-        // Optionally compress files with Brotli
-        const files = ['dist/index.js'];
-        files.forEach((file) => {
-          const contents = readFileSync(file);
-          const compressed = brotliCompressSync(contents);
-          writeFileSync(`${file}.br`, compressed);
-        });
-      });
+    await esbuild.build({
+      entryPoints: ['src/index.ts'],
+      bundle: true,
+      minify: true,
+      splitting: true,
+      format: 'esm',
+      outdir: 'dist/esm',
+      sourcemap: true,
+      metafile: true,
+      sourcemap: 'external',
+    });
+
+    // Build configuration for CJS
+    await esbuild.build({
+      entryPoints: ['src/index.ts'],
+      bundle: true,
+      minify: true,
+      format: 'cjs',
+      outdir: 'dist/cjs',
+      sourcemap: true,
+      metafile: true,
+      sourcemap: 'external',
+    });
+
+    // Optionally compress files with Brotli
+    const esmFiles = ['dist/esm/index.js'];
+    const cjsFiles = ['dist/cjs/index.js'];
+
+    esmFiles.concat(cjsFiles).forEach((file) => {
+      const contents = readFileSync(file);
+      const compressed = brotliCompressSync(contents);
+      writeFileSync(`${file}.br`, compressed);
+    });
 
     // Run the package.json creation script
     const buildPackageJsonProcess = spawn(
