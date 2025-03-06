@@ -1,8 +1,7 @@
 import esbuild from 'esbuild';
 import { readFileSync, writeFileSync } from 'fs';
 import { brotliCompressSync } from 'zlib';
-import { execSync } from 'child_process';
-import { spawn } from 'child_process';
+import { execSync, spawn } from 'child_process';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
@@ -11,45 +10,44 @@ const __dirname = path.dirname(__filename);
 
 async function build() {
   try {
-    // Generate Type Definitions using TypeScript compiler
     execSync('tsc --declaration --emitDeclarationOnly --outDir dist/types');
 
-    // Build configuration for ESM
-    await esbuild.build({
+    const esbuildOptions = {
       entryPoints: ['src/index.ts'],
       bundle: true,
       minify: true,
       splitting: true,
+      sourcemap: 'external',
+      sourcesContent: false, // Important: Omit original source in source maps
+      metafile: true,
+    };
+
+    await esbuild.build({
+      ...esbuildOptions,
       format: 'esm',
       outdir: 'dist/esm',
-      sourcemap: true,
-      metafile: true,
-      sourcemap: 'external',
     });
 
-    // Build configuration for CJS
     await esbuild.build({
-      entryPoints: ['src/index.ts'],
-      bundle: true,
-      minify: true,
+      ...esbuildOptions,
+      splitting: false,
       format: 'cjs',
       outdir: 'dist/cjs',
-      sourcemap: true,
-      metafile: true,
-      sourcemap: 'external',
     });
 
-    // Optionally compress files with Brotli
-    const esmFiles = ['dist/esm/index.js'];
-    const cjsFiles = ['dist/cjs/index.js'];
+    const filesToCompress = [
+      'dist/esm/index.js',
+      'dist/esm/index.js.map',
+      'dist/cjs/index.js',
+      'dist/cjs/index.js.map',
+    ];
 
-    esmFiles.concat(cjsFiles).forEach((file) => {
+    filesToCompress.forEach((file) => {
       const contents = readFileSync(file);
       const compressed = brotliCompressSync(contents);
       writeFileSync(`${file}.br`, compressed);
     });
 
-    // Run the package.json creation script
     const buildPackageJsonProcess = spawn(
       'node',
       [path.join(__dirname, 'build-package-json.js')],
