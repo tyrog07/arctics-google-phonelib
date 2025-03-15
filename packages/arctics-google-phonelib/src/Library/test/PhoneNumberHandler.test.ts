@@ -1,4 +1,4 @@
-import { PhoneNumberHandler, PhoneNumberFormat } from '../../';
+import { PhoneNumberHandler, PhoneNumberFormat } from '../..';
 import { IPhoneNumber } from '../../types';
 
 describe('PhoneNumberHandler', () => {

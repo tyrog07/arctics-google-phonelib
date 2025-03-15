@@ -51,11 +51,14 @@ This package simplifies phone number handling by wrapping Google's libphonenumbe
   - Identifies the type of phone number (mobile, fixed-line, toll-free, etc.).
 - **Validation:**
   - Checks if a number is valid, possible, and valid for a region.
+- **As-You-Type Formatting:**
+  - Formats phone numbers in real-time as they are being typed.
+  - Clears the input in the formatter.
 - **TypeScript Support:**
   - Provides type definitions for enhanced development experience.
 
 * **Future Features:**
-  - `AsYouTypeFormatter` and `ShortNumberInfo` will be added in future releases.
+  - `ShortNumberInfo` will be added in future releases.
 
 ## Installation
 
@@ -75,6 +78,7 @@ yarn add @arctics/google-phonelib
 import {
   PhoneNumberHandler,
   PhoneNumberFormat,
+  AsYouTypeHandler,
 } from '@arctics/google-phonelib';
 
 // Parsing and retrieving information
@@ -95,6 +99,13 @@ console.log(formattedE164); // Output: +12025550100
 //Original formatting
 const originalFormat = handler.formatInOriginalFormat('US');
 console.log(originalFormat);
+
+// AsYouTypeHandler usage
+const asYouTypeHandler = new AsYouTypeHandler('US');
+console.log(asYouTypeHandler.typeNumber('202')); // Output: 202
+console.log(asYouTypeHandler.typeNumber('555')); // Output: 202-555
+console.log(asYouTypeHandler.typeNumber('0100')); // Output: (202) 555-0100
+asYouTypeHandler.clearInput();
 ```
 
 ## API
@@ -124,6 +135,26 @@ console.log(originalFormat);
     - Formats a phone number for out-of-country dialing purposes.
   - `getPhoneNumberInfo(): IPhoneNumberInfo`
     - Returns an object containing detailed information about the phone number.
+
+### `AsYouTypeHandler` Class
+
+- Constructor:
+
+  - `constructor(regionCode: string)`
+
+    - Creates a new `AsYouTypeHandler` instance.
+    - `regionCode`: The region code for formatting the phone number.
+
+- Methods:
+
+  - `typeNumber(phoneNumber: string): string`
+    - Formats the phone number as you type.
+    - `phoneNumber`: The phone number to format.
+    - Returns the formatted phone number.
+  - `clearInput(): void`
+    - Clears the input in the formatter.
+
+### Enums & Interfaces
 
 - `PhoneNumberType` Enum
 
