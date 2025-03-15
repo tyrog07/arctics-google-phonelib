@@ -2,6 +2,9 @@ import { AsYouTypeFormatter } from '@arctics/google-phonelib-js';
 
 /**
  * Class to handle phone number formatting as you type.
+ *
+ * This class utilizes the `AsYouTypeFormatter` from the Google's libphonenumber library
+ * to provide real-time phone number formatting based on the specified region code.
  */
 export class AsYouTypeHandler {
   private formatter;
