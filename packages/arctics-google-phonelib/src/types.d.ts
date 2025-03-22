@@ -512,3 +512,14 @@ export interface IPhoneNumberInfo {
   valid: boolean;
   validForRegion: boolean;
 }
+
+export interface ShortNumberInfo {
+  isPossible: boolean;
+  isValid: boolean;
+  isEmergency: boolean;
+  isCarrierSpecific: boolean;
+  isPremiumRate: boolean;
+  isShortCode: boolean;
+  expectedCost: ShortNumberCost;
+  exampleShortNumber: string | null;
+}
