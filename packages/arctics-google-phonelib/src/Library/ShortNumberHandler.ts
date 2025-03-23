@@ -21,6 +21,18 @@ export class ShortNumberHandler {
   private parsedPhoneNumber: IPhoneNumber;
 
   /**
+   * Entered phone number.
+   * @private
+   */
+  private enteredNumber: string;
+
+  /**
+   * Region code for the number.
+   * @private
+   */
+  private regionCode: string;
+
+  /**
    * Creates an instance of PhoneNumberHandler.
    * @param {string} phoneNumber - The phone number string to parse.
    * @param {string} regionCode - The region code (e.g., 'US', 'GB') for parsing the phone number.
@@ -33,6 +45,8 @@ export class ShortNumberHandler {
   ) {
     this.shortNumberInfo = ShortNumberUtil;
     this.phoneUtil = PhoneNumberUtil;
+    this.regionCode = regionCode;
+    this.enteredNumber = phoneNumber;
     // this.parsedPhoneNumber = this.parseAndKeepRawInput(phoneNumber, regionCode);
     if (mode === 'parse') {
       this.parsedPhoneNumber = this.parse(phoneNumber, regionCode);
@@ -121,64 +135,54 @@ export class ShortNumberHandler {
     return this.phoneUtil.parseAndKeepRawInput(numberToParse, defaultRegion);
   }
 
-  getBasicInfo(number: string, regionCode: string): ShortNumberInfo | any {
+  getBasicInfo(): ShortNumberInfo | any {
     return {
-      isPossible: this.isPossibleShortNumberPrivate(number, regionCode),
-      //   isValid: this.isValidShortNumberPrivate(number, regionCode),
-      //   isEmergency: this.isEmergencyNumberPrivate(number, regionCode),
-      //   isCarrierSpecific: this.isCarrierSpecificPrivate(number, regionCode),
-      //   isPremiumRate: this.isPremiumRatePrivate(number, regionCode),
-      //   isShortCode: this.isShortCodePrivate(number, regionCode),
-      //   expectedCost: this.getExpectedCostPrivate(number, regionCode),
-      //   exampleShortNumber: this.getExampleShortNumberPrivate(regionCode),
+      isPossible: this.isPossibleShortNumber(),
+      isValid: this.isValidShortNumber(),
+      isEmergency: this.isEmergencyNumber(),
+      isCarrierSpecific: this.isCarrierSpecific(),
+      expectedCost: this.getExpectedCost(),
+      exampleShortNumber: this.getExampleShortNumber(),
     };
   }
 
-  private isPossibleShortNumberPrivate(
-    number: string,
-    regionCode: string,
-  ): boolean {
+  private isPossibleShortNumber(): boolean {
     return this.shortNumberInfo.isPossibleShortNumber(
       this.parsedPhoneNumber,
-      regionCode,
+      this.regionCode,
     );
   }
 
-  private isValidShortNumberPrivate(
-    number: string,
-    regionCode: string,
-  ): boolean {
-    return this.shortNumberInfo.isValidShortNumber(number, regionCode);
+  private isValidShortNumber(): boolean {
+    return this.shortNumberInfo.isValidShortNumber(
+      this.parsedPhoneNumber,
+      this.regionCode,
+    );
   }
 
-  private isEmergencyNumberPrivate(
-    number: string,
-    regionCode: string,
-  ): boolean {
-    return this.shortNumberInfo.isEmergencyNumber(number, regionCode);
+  private isEmergencyNumber(): boolean {
+    return this.shortNumberInfo.isEmergencyNumber(
+      this.enteredNumber,
+      this.regionCode,
+    );
   }
 
-  private isCarrierSpecificPrivate(
-    number: string,
-    regionCode: string,
-  ): boolean {
-    return this.shortNumberInfo.isCarrierSpecific(number, regionCode);
+  private isCarrierSpecific(): boolean {
+    return this.shortNumberInfo.isCarrierSpecific(
+      this.parsedPhoneNumber,
+      this.regionCode,
+    );
   }
 
-  private isPremiumRatePrivate(number: string, regionCode: string): boolean {
-    return this.shortNumberInfo.isPremiumRate(number, regionCode);
+  private getExpectedCost(): any {
+    return this.shortNumberInfo.getExpectedCost(
+      this.parsedPhoneNumber,
+      this.regionCode,
+    );
   }
 
-  private isShortCodePrivate(number: string, regionCode: string): boolean {
-    return this.shortNumberInfo.isShortCode(number, regionCode);
-  }
-
-  private getExpectedCostPrivate(number: string, regionCode: string): any {
-    return this.shortNumberInfo.getExpectedCost(number, regionCode);
-  }
-
-  private getExampleShortNumberPrivate(regionCode: string): string | null {
-    return this.shortNumberInfo.getExampleShortNumber(regionCode);
+  private getExampleShortNumber(): string | null {
+    return this.shortNumberInfo.getExampleShortNumber(this.regionCode);
   }
 
   getExpectedCostForRegion(regionCode: string, nationalNumber: string): any {
